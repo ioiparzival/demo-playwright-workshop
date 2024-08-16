@@ -3,10 +3,10 @@ import { Application } from '../../app';
 
 const testUser = {
   email: 'test+e1f76f13-0f04-4f2e-86d8-0e78e3df2ddd@test.com',
-  password: 'xotabu4@gmail.com'
-}
+  password: 'xotabu4@gmail.com',
+};
 
-test('logged in user can buy a product', async ({ page }) => {  
+test('logged in user can buy a product', async ({ page }) => {
   const app = new Application(page);
 
   await app.signIn.open();
