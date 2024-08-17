@@ -1,7 +1,7 @@
-import { test } from "@playwright/test";
-import { Application } from "../app";
-import { UserCreateRequest, UserCreatedResponse } from "../api/models";
-import { randomUUID } from "node:crypto";
+import { test } from '@playwright/test';
+import { Application } from '../app';
+import { UserCreateRequest, UserCreatedResponse } from '../api/models';
+import { randomUUID } from 'node:crypto';
 
 export const baseFixture = test.extend<{ app: Application }>({
   app: async ({ page }, use) => {
@@ -17,13 +17,11 @@ export type DefaultUserOption = {
   };
 };
 
-export const loggedUserFixture = baseFixture.extend<
-  DefaultUserOption & { app: Application }
->({
+export const loggedUserFixture = baseFixture.extend<DefaultUserOption & { app: Application }>({
   defaultUser: [
     {
-      email: "test+e1f76f13-0f04-4f2e-86d8-0e78e3df2ddd@test.com",
-      password: "xotabu4@gmail.com",
+      email: 'test+e1f76f13-0f04-4f2e-86d8-0e78e3df2ddd@test.com',
+      password: 'xotabu4@gmail.com',
     },
     {
       option: true,
@@ -37,12 +35,15 @@ export const loggedUserFixture = baseFixture.extend<
 
     await use(app);
     // Cleanup
-    console.log("Post fixture!", defaultUser);
+    console.log('Post fixture!', defaultUser);
   },
 });
 
 interface UserContext {
-  user: { userModel: UserCreateRequest; createdUser: UserCreatedResponse };
+  user: {
+    userModel: UserCreateRequest;
+    createdUser: UserCreatedResponse;
+  };
 }
 
 export const loggedInAsNewUserFixture = baseFixture.extend<UserContext>({
@@ -50,9 +51,9 @@ export const loggedInAsNewUserFixture = baseFixture.extend<UserContext>({
     const userModel = {
       isSubscribed: false,
       email: `test+${randomUUID()}@test.com`,
-      firstName: "test",
-      lastName: "test",
-      password: "xotabu4@gmail.com",
+      firstName: 'test',
+      lastName: 'test',
+      password: 'xotabu4@gmail.com',
     };
 
     const createdUser = await app.api.auth.createNewUser(userModel);
